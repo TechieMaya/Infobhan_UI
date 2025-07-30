@@ -1,0 +1,604 @@
+.doc-upload-page-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem; /* Reduced from 2rem - Space between the two main cards */
+  padding: 2rem;
+  background-color: #eaf2f8; /* Lighter, softer blue page background like screenshots */
+  min-height: calc(100vh - 70px); /* Adjust 70px based on Navbar height */
+  box-sizing: border-box;
+}
+
+/* Common Card Styling */
+.card-main {
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1); /* Softer, more pronounced shadow */
+  padding: 25px 30px;
+  width: 100%;
+  max-width: 750px; /* Slightly wider cards */
+  text-align: center;
+  position: relative;
+  overflow: visible; /* Allow shadows to be more visible, blobs are not in this page */
+}
+
+.document-upload-card {
+    /* This ruleset is a placeholder for any specific styles for the document upload card. */
+    /* If no specific styles are needed, it can be removed. */
+}
+
+.card-main h2 {
+  font-family: 'Montserrat', sans-serif; /* Changed font */
+  color: #2c3e50; /* Darker, more professional blue-grey */
+  font-size: 28px; /* Increased heading size */
+  margin-top: 0;
+  margin-bottom: 10px;
+  font-weight: 700; /* Ensure heading is bold */
+}
+
+.accent-bar {
+  width: 70px; /* Slightly wider accent */
+  height: 4px;
+  background-color: #3498db; /* Primary blue */
+  margin: 0 auto 20px auto; /* Increased bottom margin */
+  border-radius: 2px;
+}
+
+.section-description {
+  color: #555;
+  font-size: 15px; /* Slightly larger description text */
+  line-height: 1.6;
+  margin-bottom: 25px;
+  max-width: 95%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Drag and Drop Area */
+.drag-drop-area {
+  border: 2px dashed #cccccc; 
+  border-radius: 8px;
+  padding: 25px 20px; /* Adjusted padding */
+  background-color: #f9f9f9; 
+  cursor: pointer;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+  margin-bottom: 20px;
+  display: flex; /* Added for centering content */
+  flex-direction: column; /* Stack icon and text vertically */
+  align-items: center; /* Center horizontally */
+  justify-content: center; /* Center vertically */
+  min-height: 120px; /* Ensure a minimum height */
+}
+
+.drag-drop-area.files-selected {
+  border-style: solid; /* Change to solid border when files are selected */
+  border-color: #3498db; /* Blue border to indicate selection */
+  background-color: #e7f3ff; /* Light blue background */
+  cursor: pointer; /* Changed from default to pointer */
+}
+
+.drag-drop-area.files-selected:hover {
+  background-color: #dcf0ff; /* Slightly lighter blue on hover */
+  border-color: #2980b9; /* Darker blue border on hover */
+}
+
+.drag-drop-area.files-selected p {
+  font-weight: 600; /* Bolder text for selected files count */
+  color: #3498db; /* Darker blue text */
+}
+
+.drag-drop-area:not(.files-selected):hover {
+  background-color: #f0f0f0;
+  border-color: #3498db;
+}
+
+.drag-drop-area.disabled {
+    cursor: not-allowed;
+    background-color: #e9ecef;
+    opacity: 0.7;
+}
+
+.drag-drop-area .upload-icon {
+  font-size: 32px;
+  color: #3498db;
+  margin-bottom: 12px;
+}
+
+.drag-drop-area p {
+  margin: 0;
+  color: #555; /* Darker text for better readability */
+  font-weight: 500;
+  font-size: 16px;
+}
+
+/* Selected Files Display */
+.selected-files-display {
+  margin-top: 20px;
+  margin-bottom: 25px;
+  text-align: left;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 10px 15px;
+  background-color: #ffffff;
+  max-height: 200px; /* Increased max height */
+  overflow-y: auto;
+}
+
+.selected-files-display h4 {
+  margin-top: 5px;
+  margin-bottom: 12px;
+  font-size: 16px;
+  color: #333;
+  font-weight: 600;
+}
+
+.selected-files-display ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.selected-files-display li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 5px; /* Increased padding */
+  font-size: 14px;
+  color: #444;
+  border-bottom: 1px solid #f0f0f0;
+}
+.selected-files-display li:last-child {
+  border-bottom: none;
+}
+.selected-files-display li span {
+  flex-grow: 1;
+  margin-right: 10px;
+  word-break: break-all;
+}
+
+.remove-file-btn {
+  background: none;
+  border: none;
+  color: #dc3545;
+  font-size: 18px; /* Larger remove icon */
+  cursor: pointer;
+  padding: 0 5px;
+  line-height: 1;
+}
+.remove-file-btn:hover {
+  color: #c82333;
+}
+.remove-file-btn:disabled {
+    color: #aaa;
+    cursor: not-allowed;
+}
+
+
+/* Buttons */
+.btn {
+  padding: 12px 25px; /* Larger buttons */
+  font-size: 16px;
+  font-weight: 600; /* Bolder text */
+  border-radius: 8px; /* More rounded corners */
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.1s ease, box-shadow 0.2s ease;
+  border: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px; /* Increased gap */
+  margin-top: 15px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+.btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.btn-green {
+  background-color: #28a745;
+  color: white;
+}
+.btn-green:hover:not(:disabled) {
+  background-color: #218838;
+}
+
+.btn-blue {
+  background-color: #3498db;
+  color: white;
+}
+.btn-blue:hover:not(:disabled) {
+  background-color: #0056b3;
+}
+
+.btn-upload-files {
+  min-width: 200px;
+  margin-bottom: 20px;
+}
+.btn-process {
+  margin-top: 20px;
+}
+.btn-chat-maya {
+  margin-top: 20px;
+  background-color: #2ecc71; /* Green like upload button */
+}
+.btn-chat-maya:hover:not(:disabled) {
+  background-color: #218838;
+}
+
+
+/* Messages */
+.message-overall,
+.message-db-status,
+.message-db-build,
+.message-instructions {
+  padding: 12px 18px;
+  margin-top: 20px;
+  margin-bottom: 10px; /* Ensure space below message */
+  border-radius: 8px;
+  font-size: 15px;
+  text-align: center;
+  border: 1px solid transparent;
+  line-height: 1.5;
+}
+
+.message-error {
+  background-color: #f8d7da; color: #721c24; border-color: #f5c6cb;
+}
+.message-success {
+  background-color: #d4edda; color: #155724; border-color: #c3e6cb;
+}
+.message-warning {
+  background-color: #fff3cd; color: #856404; border-color: #ffeeba;
+}
+.message-info {
+  background-color: #d1ecf1; color: #0c5460; border-color: #bee5eb;
+}
+
+.small-text {
+    font-size: 0.9em;
+    color: #666;
+}
+
+/* Loading Spinner */
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 25px 0;
+  color: #555;
+}
+.loading-container.main-loader {
+    min-height: 200px; /* For initial page load spinner */
+}
+
+.spinner {
+  border: 4px solid rgba(0, 0, 0, 0.1);
+  width: 40px; 
+  height: 40px;
+  border-radius: 50%;
+  border-left-color: #3498db; 
+  animation: spin 1s linear infinite;
+}
+
+/* Remove the specific spinner styling for process-message if it's meant to be the same */
+/* .process-message .spinner { ... } */
+
+.loading-container p {
+    color: #333; /* Darker text for better readability */
+    font-weight: 500;
+}
+
+.processing-main-text {
+    font-size: 1.1em;
+    font-weight: 600;
+    color: #3498db; /* Blue to match spinner */
+}
+
+.processing-sub-text {
+    font-size: 0.9em;
+    color: #555;
+    margin-top: 5px;
+}
+
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Instructions Section */
+.instructions-card {
+  /* Uses .card-main styling */
+  margin-top: 1rem; /* Add some space if it feels too close to the top card */
+  /* border-top: 1px solid #dee2e6; */ /* Removed */
+  /* padding-top: 2rem; */ /* Removed */
+  background-color: #ffffff; /* Ensure card background is white */
+  position: relative; /* For blob positioning */
+  overflow: hidden; /* To contain blobs */
+}
+
+.instructions-toggle-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* Push icon to the right */
+  cursor: pointer;
+  padding: 18px 20px; /* Slightly more padding */
+  border: 0px solid #e0e6eb; /* Softer border color */
+  border-radius: 8px;
+  background-color: transparent;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+  user-select: none; /* Prevent text selection on click */
+  margin-bottom: 0; /* Remove margin if content is directly below */
+  position: relative; /* Ensure header is above blobs */
+  z-index: 2; /* Above blobs */
+}
+.instructions-toggle-header:hover {
+  border-color: #3498db;
+}
+
+.instructions-toggle-header.expanded {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    border-bottom-color: transparent; /* Make bottom border disappear when expanded */
+}
+
+
+.instructions-toggle-header input[type="checkbox"] {
+  margin-right: 15px; /* More space */
+  width: 20px; /* Larger checkbox */
+  height: 20px;
+  cursor: pointer;
+  accent-color: #3498db; /* Style checkbox color */
+}
+.instructions-toggle-header label {
+  font-weight: 600; /* Bolder label */
+  color: #34495e; /* Darker, more refined color */
+  cursor: pointer;
+  flex-grow: 1;
+  font-size: 17px; /* Slightly larger */
+}
+
+.toggle-icon {
+    font-size: 1.3em; /* Larger icon */
+    color: #3498db;
+    transition: transform 0.2s ease-in-out;
+}
+
+.instructions-toggle-header.expanded .toggle-icon {
+    transform: rotate(180deg);
+}
+
+
+.instructions-editor-content {
+  padding: 25px 20px 20px 20px; 
+  text-align: left; 
+  border: none !important; /* Ensure no border */
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+  background-color: transparent; /* Make transparent to show card blobs */
+  box-shadow: none !important; /* Ensure no shadow on this specific element */
+  outline: none !important; /* Ensure no outline */
+  position: relative; /* Ensure content is above blobs */
+  z-index: 1; /* Above blobs but below header if overlapping needed */
+}
+
+/* Add a specific h2 style for instructions if different from main card h2 */
+.instructions-editor-content h2 {
+    font-family: 'Montserrat', sans-serif; /* Changed font */
+    font-size: 30px;  /* Increased size further */
+    color: #2c3e50; /* Dark blue-grey, professional */
+    margin-bottom: 10px;
+    text-align: center; /* Center the "Custom Agent Instructions" heading */
+}
+
+/* Ensure accent bar in instructions is centered if used */
+.instructions-editor-content .accent-bar {
+    margin: 0 auto 25px auto; /* Increased bottom margin */
+}
+
+.instructions-editor-content .section-description {
+    font-size: 14px;
+    color: #495057; /* Softer text color */
+    margin-bottom: 20px;
+    text-align: center; /* Center description */
+    max-width: 100%;
+}
+
+.instructions-editor-content textarea {
+  width: 100%; /* Full width within padded container */
+  padding: 12px;
+  border: 1px solid #ced4da;
+  border-radius: 6px;
+  box-sizing: border-box;
+  font-family: 'Roboto', 'Segoe UI', sans-serif; /* Consistent font */
+  font-size: 15px; /* Larger font size */
+  line-height: 1.6;
+  margin-bottom: 20px;
+  resize: vertical;
+  min-height: 140px; /* Taller text area */
+  display: block; 
+  background-color: #fdfdff; /* Very light off-white */
+}
+.instructions-editor-content textarea:focus {
+  outline: none;
+  border-color: #3498db;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+  background-color: #fff;
+}
+
+.instructions-editor-content .btn-save-instructions {
+    display: block; /* Make button block to center it */
+    margin: 0 auto; /* Center the button */
+    min-width: 180px;
+}
+
+/* Divider Line Style */
+.divider-line {
+    width: 80%;
+    max-width: 750px;
+    height: 1px;
+    background-color: #d1d9e0; /* Subtle grey line */
+    margin: 1rem auto; /* Center it and provide space */
+}
+
+/* Blob Styles */
+.blob {
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  filter: blur(60px); /* Reduced blur */
+  z-index: 0; 
+  opacity: 0.75; /* Slightly increased opacity */
+  pointer-events: none; 
+}
+
+/* Document Upload Card Blobs */
+.blob-doc-top-left {
+  top: -60px; 
+  left: -70px; 
+  width: 220px; 
+  height: 220px; 
+  background: linear-gradient(
+    45deg,
+    rgba(0, 123, 255, 0.35), 
+    rgba(0, 180, 255, 0.35)  
+  );
+  filter: blur(70px); /* Reduced blur */
+}
+
+.blob-doc-bottom-right {
+  bottom: -70px; 
+  right: -60px; 
+  width: 240px; 
+  height: 240px; 
+  background: linear-gradient(
+    45deg,
+    rgba(40, 167, 69, 0.4),  
+    rgba(80, 207, 109, 0.4) 
+  );
+  filter: blur(80px); /* Reduced blur */
+}
+
+/* Instructions Card Blobs */
+.blob-instr-top-right {
+  top: -70px; 
+  right: -90px; 
+  width: 280px; 
+  height: 280px; 
+  background: linear-gradient(
+    45deg,
+    rgba(40, 167, 69, 0.45), 
+    rgba(80, 207, 109, 0.45)  
+  );
+  filter: blur(90px); /* Reduced blur */
+  opacity: 0.85; /* Adjusted opacity */
+}
+
+.blob-instr-bottom-left {
+  bottom: -90px; 
+  left: -80px; 
+  width: 300px; 
+  height: 300px; 
+  background: linear-gradient(
+    45deg,
+    rgba(0, 123, 255, 0.3), 
+    rgba(0, 180, 255, 0.3) 
+  );
+  filter: blur(100px); /* Reduced blur */
+  opacity: 0.9; /* Adjusted opacity */
+}
+
+/* Remove generic blob-top-left and blob-bottom-right if no longer used by other elements */
+/* .blob-top-left { ... } */
+/* .blob-bottom-right { ... } */
+
+
+/* Ensure card content is above blobs */
+.card-main {
+    position: relative; /* Needed for z-index stacking context */
+    overflow: hidden; /* Contain blobs within card boundaries if they are too large or positioned outside */
+}
+
+.card-main > *:not(.blob) {
+    position: relative;
+    z-index: 1;
+}
+
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .doc-upload-page-container {
+    padding: 1rem;
+  }
+  .card-main {
+    padding: 20px 15px;
+    max-width: 95%;
+  }
+  .card-main h2 {
+    font-size: 20px;
+  }
+  .section-description {
+    font-size: 14px;
+  }
+  .drag-drop-area {
+    padding: 25px 15px;
+  }
+  .btn {
+    padding: 10px 18px;
+    font-size: 15px;
+  }
+  .instructions-editor-content textarea {
+    width: calc(100% - 20px);
+  }
+}
+
+/* Loading Spinner Styling - Rely on FaSpinner default animation */
+.loading-container.process-message .spinner {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: 5px solid transparent;
+  border-top: 5px solid #3498db; /* Blue semicircle */
+  animation: spin 0.8s linear infinite; /* Re-enable spin animation */
+  margin: 0 auto 15px auto;
+  /* Remove font-size if not using an icon font */
+}
+
+/* Spinner for buttons (FaSpinner can still be used here if preferred, or a similar CSS spinner) */
+.spinner-btn {
+  /* Using FaSpinner, so rely on its animation. Control size/color. */
+  font-size: 20px; 
+  color: #ffffff; 
+  /* No custom animation needed if it's an icon font with built-in spin */
+}
+
+/* Re-add @keyframes spin for the CSS spinner */
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Text accompanying the main processing spinner */
+.loading-container.process-message .processing-main-text {
+    font-size: 1.1em;
+    font-weight: 600;
+    color: #2ecc71; /* Green color */
+    margin-bottom: 5px;
+}
+
+.loading-container.process-message .processing-sub-text {
+    font-size: 0.9em;
+    color: #555;
+}
+
+/* Remove redundant spinner styling if any */
+/* Make sure .loading-container .spinner does not conflict if it was defined elsewhere with different styles */

@@ -1,0 +1,128 @@
+.landing-page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  font-family: 'Open Sans', sans-serif; /* Body font */
+}
+
+.hero-section {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 3rem 2rem; /* Increased padding */
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); /* Subtle gradient background */
+  color: #333; /* Default text color for this section */
+  position: relative; /* For pseudo-elements */
+  overflow: hidden; /* To clip pseudo-elements */
+}
+
+.hero-section::before,
+.hero-section::after {
+  content: '';
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0.18; /* Opacity increased by 0.03 */
+  z-index: -1; /* Place behind hero-section's content flow */
+  filter: blur(20px); /* Slightly more blur for larger area */
+}
+
+@keyframes float-blob-1 {
+  0% { transform: translate(0px, 0px) scale(1); }
+  20% { transform: translate(30px, -40px) scale(1.03); }
+  40% { transform: translate(-20px, 25px) scale(0.98); }
+  60% { transform: translate(40px, 10px) scale(1.05); }
+  80% { transform: translate(-10px, -30px) scale(0.95); }
+  100% { transform: translate(0px, 0px) scale(1); }
+}
+
+@keyframes float-blob-2 {
+  0% { transform: translate(0px, 0px) scale(1); }
+  20% { transform: translate(-35px, 20px) scale(0.96); }
+  40% { transform: translate(15px, -25px) scale(1.04); }
+  60% { transform: translate(-20px, -15px) scale(0.98); }
+  80% { transform: translate(25px, 30px) scale(1.02); }
+  100% { transform: translate(0px, 0px) scale(1); }
+}
+
+/* Ensure hero content is above pseudo-elements */
+.hero-content-wrapper {
+  position: relative; /* To allow z-indexing of content above its own pseudo-elements */
+  z-index: 1; /* Content wrapper above hero-section's pseudo-elements */
+  /* This wrapper can also have its own pseudo-elements if needed for more layers */
+}
+
+.hero-section > .hero-content-wrapper > h1, 
+.hero-section > .hero-content-wrapper > p {
+  position: relative; /* Ensure h1 and p are also z-indexed if wrapper has pseudos */
+  z-index: 1;
+}
+
+/* Adding two more blobs using the wrapper's pseudo-elements */
+.hero-content-wrapper::before,
+.hero-content-wrapper::after {
+  content: '';
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0.15; /* Opacity increased by 0.03 */
+  z-index: -1; /* Behind the h1 and p in this wrapper, but above hero-section's background */
+  filter: blur(18px);
+}
+
+.hero-content-wrapper::before {
+  width: 250px;
+  height: 250px;
+  background-color: rgba(46, 204, 113, 0.45); /* Lighter green variant */
+  top: 50%;
+  left: 50%;
+  transform: translate(-150%, -120%); /* Different positioning */
+  animation: float-blob-1 22s infinite ease-in-out alternate 1.2s; 
+}
+
+.hero-content-wrapper::after {
+  width: 200px;
+  height: 200px;
+  background-color: rgba(52, 152, 219, 0.55); /* Lighter blue variant */
+  top: 50%;
+  left: 50%;
+  transform: translate(80%, 60%); /* Different positioning */
+  animation: float-blob-2 24s infinite ease-in-out alternate 1.8s;
+}
+
+
+.hero-section h1 {
+  font-family: 'Montserrat', sans-serif; /* Heading font */
+  font-size: 3.5rem; /* Larger heading */
+  font-weight: 700;
+  margin-bottom: 2.5rem; /* Increased margin to accommodate accent */
+  color: #2c3e50; /* Reverted to Darker, more sophisticated color */
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.1); /* Subtle text shadow */
+  position: relative; /* For positioning the accent */
+  padding-bottom: 0.75rem; /* Space for the accent */
+}
+
+.hero-section h1 .brand-highlight {
+  color: #3498db; /* Theme blue for "TechieMaya" */
+}
+
+.hero-section h1::after {
+  content: '';
+  display: block;
+  width: 100px; /* Width of the accent line */
+  height: 5px;  /* Thickness of the accent line */
+  background-color: #3498db; /* Accent color - vibrant blue */
+  border-radius: 3px; /* Rounded ends for the line */
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%); /* Center the accent line */
+}
+
+.hero-section p {
+  font-size: 1.3rem; /* Slightly larger paragraph text */
+  color: #555; /* Softer text color */
+  max-width: 650px; /* Slightly wider */
+  line-height: 1.7; /* Improved readability */
+}

@@ -1,0 +1,101 @@
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background-color: #ffffff; /* Changed back to white */
+  border-bottom: 1px solid #e0e0e0; /* Softer border for white background */
+  font-family: 'Open Sans', sans-serif;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05); /* Subtle shadow for depth */
+}
+
+.navbar-brand a {
+  font-family: 'Montserrat', sans-serif; /* Heading font */
+  font-size: 1.6rem; /* Slightly larger */
+  font-weight: 700; /* Bold */
+  color: #2c3e50; /* Darker, more sophisticated blue/grey */
+  text-decoration: none;
+}
+
+.navbar-brand-maya {
+  color: #3498db; /* Blue color for "Maya" */
+}
+
+/* Styles for the UL container of links */
+.navbar-links {
+  display: flex; /* Arrange li items horizontally */
+  align-items: center; /* Align items vertically */
+  list-style: none; /* Remove default bullet points */
+  padding: 0;
+  margin: 0;
+}
+
+/* Styles for each LI item */
+.navbar-links li {
+  margin-left: 1.75rem; /* Spacing between items */
+  display: flex; /* To help align items like in logout */
+  align-items: center; /* Vertically align items in li */
+}
+
+/* Styles for the logout menu item specifically if more control is needed */
+.navbar-links li.logout-menu-item {
+  /* flex-direction: column; */ /* Removed to make items inline */
+  align-items: center; /* Keep items vertically centered in the row */
+  /* margin-left for li itself provides spacing from other nav items */
+}
+
+
+/* Styles for A tags within LI */
+.navbar-links li a {
+  font-size: 1rem;
+  font-weight: 600; /* Semi-bold for links */
+  color: #3498db; /* A more vibrant blue */
+  text-decoration: none;
+  transition: color 0.2s ease-in-out;
+}
+
+.navbar-links li a:hover {
+  color: #2980b9; /* Darker blue on hover */
+  text-decoration: none; /* Remove underline, rely on color change */
+}
+
+/* Styles for the logout button */
+.navbar-links .logout-button {
+  /* margin-left: 1.75rem; */ /* Removed as li.logout-menu-item will handle its own spacing */
+  font-size: 1rem;
+  font-weight: 600;
+  color: #e74c3c; /* A distinct color for logout, e.g., red */
+  text-decoration: none;
+  background-color: transparent;
+  border: none;
+  padding: 0; /* Remove default button padding if it should look like a link */
+  cursor: pointer;
+  transition: color 0.2s ease-in-out;
+}
+
+.navbar-links .logout-button:hover {
+  color: #c0392b; /* Darker red on hover */
+}
+
+.logout-username {
+  font-size: 0.9rem; /* Slightly larger for better readability inline */
+  color: #555; /* Grey color for username */
+  margin-left: 0.5rem; /* Space between "Logout" button and username */
+  /* margin-top: 0.15rem; */ /* Removed as it's inline now */
+}
+
+
+/* Specific style for a chat link if needed, assuming it's an A tag */
+.navbar-links li a.nav-link-chat {
+  background-color: #2ecc71; /* Green background */
+  color: #ffffff; /* White text */
+  padding: 0.5rem 1rem; /* Add some padding to make it look like a button */
+  border-radius: 5px; /* Rounded corners */
+  transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+}
+
+.navbar-links a.nav-link-chat:hover {
+  background-color: #27ae60; /* Darker green on hover */
+  color: #ffffff; /* Keep text white on hover */
+  text-decoration: none;
+}

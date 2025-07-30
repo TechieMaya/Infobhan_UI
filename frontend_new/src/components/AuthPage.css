@@ -1,0 +1,229 @@
+/* General body and font setup */
+body {
+  font-family: 'Open Sans', sans-serif; /* Using Open Sans as a modern default */
+  background-color: #eaf2f8; /* Updated background for the page */
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Container to center the auth card on the page */
+.auth-page-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-grow: 1;
+  padding: 20px;
+  position: relative;
+  background-color: #eaf2f8; /* Added background color */
+  /* overflow: hidden; // Moved overflow to auth-form-card if blobs are only card-specific */
+}
+
+/* The main authentication card */
+.auth-form-card {
+  background-color: #ffffff; /* Explicitly white card */
+  padding: 35px 45px; /* Increased padding */
+  border-radius: 16px; /* Rounder corners */
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15); /* More pronounced shadow */
+  width: 100%;
+  max-width: 420px; /* Slightly wider card */
+  text-align: center;
+  position: relative;
+  z-index: 1; /* Ensure card content is above page-level blobs if any */
+  overflow: hidden; /* Crucial for clipping the blobs to the card's rounded corners */
+}
+
+/* Heading style */
+.auth-form-card h2 {
+  font-family: 'Montserrat', sans-serif;
+  color: #2c3e50;
+  font-size: 30px; /* Made heading bigger */
+  margin-bottom: 10px;
+  font-weight: 700;
+  position: relative;
+  display: inline-block;
+  padding-bottom: 10px;
+  z-index: 2; /* Ensure heading is above blobs */
+}
+
+/* Accent bar under the heading */
+.auth-form-card h2::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 0;
+  width: 60px;
+  height: 4px;
+  background-color: #3498db;
+  border-radius: 2px;
+}
+
+/* Form fields container */
+.auth-form-fields {
+  margin-top: 25px;
+  position: relative; /* Ensure form fields are also on a new stacking context */
+  z-index: 2; /* Ensure form fields are above blobs */
+}
+
+/* Styling for input fields and labels */
+.auth-input-field {
+  margin-bottom: 22px;
+  text-align: left;
+  position: relative; /* Stacking context for children if needed */
+  z-index: 2; /* Ensure individual fields are above blobs */
+}
+
+.auth-input-field label {
+  display: block;
+  color: #495057; /* Softer grey for labels */
+  margin-bottom: 8px; /* More space below label */
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.auth-input-field input {
+  width: 100%;
+  padding: 12px 15px; /* More padding */
+  background-color: #ffffff; /* Ensure input background is white */
+  border: 1px solid #ced4da; /* Lighter border */
+  border-radius: 8px; /* Rounder input fields */
+  box-sizing: border-box;
+  font-size: 16px;
+  color: #333333; /* Ensure text color is dark and visible */
+  transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.auth-input-field input::placeholder {
+  color: #adb5bd; /* Lighter placeholder text */
+}
+
+.auth-input-field input:focus {
+  border-color: #3498db;
+  outline: none;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25); /* Blue glow on focus */
+}
+
+/* Button styling */
+.auth-action-button {
+  width: 100%;
+  padding: 12px;
+  background-color: #2ecc71;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.1s ease;
+  position: relative; /* Stacking context */
+  z-index: 2; /* Ensure button is above blobs */
+}
+
+.auth-action-button:hover {
+  background-color: #218838;
+  transform: translateY(-2px); /* Slight lift on hover */
+}
+
+.auth-action-button:active {
+  transform: translateY(0);
+}
+
+.auth-action-button:disabled {
+  background-color: #aabbc4; /* More distinct disabled state */
+  cursor: not-allowed;
+}
+
+/* Styling for error and success messages */
+.auth-message {
+  padding: 12px 15px;
+  margin-bottom: 20px;
+  border-radius: 6px;
+  font-size: 14px;
+  text-align: center;
+  border: 1px solid transparent;
+  position: relative; /* Stacking context */
+  z-index: 2; /* Ensure messages are above blobs */
+}
+
+.auth-error-message {
+  background-color: #f8d7da;
+  color: #721c24;
+  border-color: #f5c6cb;
+}
+
+.auth-success-message {
+  background-color: #d4edda;
+  color: #155724;
+  border-color: #c3e6cb;
+}
+
+/* Text and link for switching between login/signup */
+.auth-switch-prompt {
+  margin-top: 30px;
+  font-size: 14px;
+  color: #555;
+  position: relative; /* Stacking context */
+  z-index: 2; /* Ensure switch prompt is above blobs */
+}
+
+.auth-switch-link {
+  color: #3498db;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.auth-switch-link:hover {
+  text-decoration: underline;
+}
+
+/* Blob Styles */
+.auth-blobs {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden; /* This is important if blobs are inside a specific container */
+  z-index: 0; /* Behind card content */
+  border-radius: inherit; /* Inherit from parent card for clipping */
+}
+
+.blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(50px); /* Reduced blur */
+  opacity: 0.7; /* Default opacity */
+  pointer-events: none;
+}
+
+.blob-blue {
+  width: 220px; /* Larger */
+  height: 220px;
+  background: linear-gradient(
+    45deg,
+    rgba(0, 123, 255, 0.3), /* Blue */
+    rgba(0, 180, 255, 0.3)
+  );
+  top: -80px; /* Positioned top-leftish */
+  left: -90px;
+  filter: blur(50px); /* Reduced blur */
+}
+
+.blob-green {
+  width: 250px; /* Larger */
+  height: 250px;
+  background: linear-gradient(
+    225deg, /* Different angle for variety */
+    rgba(40, 167, 69, 0.35), /* Green */
+    rgba(80, 207, 109, 0.35)
+  );
+  bottom: -100px; /* Positioned bottom-rightish */
+  right: -110px;
+  opacity: 0.75; /* Slightly more opaque green */
+  filter: blur(55px); /* Reduced blur slightly differently for variation */
+}
+
+/* Ensure card content is above blobs */

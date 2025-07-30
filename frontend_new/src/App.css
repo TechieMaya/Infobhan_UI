@@ -1,0 +1,64 @@
+/* Basic Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Open Sans', sans-serif; /* Default body font */
+  line-height: 1.6;
+  background-color: #e6f0ff; /* More distinct subtle blue page background */
+  color: #333;
+}
+
+.App {
+  min-height: 100vh; /* Ensure app takes at least full viewport height */
+  display: flex;
+  flex-direction: column;
+}
+
+/* General container styling that might be useful */
+.container {
+  width: 90%;
+  max-width: 1100px;
+  margin: auto;
+  padding: 0 20px;
+}
+
+a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+button {
+  cursor: pointer;
+}
+
+@keyframes float-blob-1 {
+  0% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(20px, 15px) scale(1.05); /* Simpler path, adjusted values */
+  }
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+}
+
+@keyframes float-blob-2 {
+  0% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(-15px, -20px) scale(0.95); /* Simpler path, adjusted values */
+  }
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+}

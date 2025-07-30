@@ -1,0 +1,111 @@
+/* SignupPage.css */
+.auth-page-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: calc(100vh - 70px); /* Adjust 70px if your Navbar height is different */
+  padding: 20px;
+  box-sizing: border-box;
+  background-color: #f4f7f6;
+}
+
+.auth-form-container {
+  background: #ffffff;
+  padding: 30px 40px;
+  border-radius: 10px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  width: 100%;
+  max-width: 420px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.auth-form-container h2 {
+  text-align: center;
+  margin-bottom: 15px;
+  color: #333;
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.auth-form-container .form-group {
+  margin-bottom: 15px;
+}
+
+.auth-form-container label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 500;
+  color: #555;
+  font-size: 14px;
+}
+
+.auth-form-container input[type="email"],
+.auth-form-container input[type="password"],
+.auth-form-container input[type="text"] {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+  font-size: 16px;
+  transition: border-color 0.3s ease;
+}
+
+.auth-form-container input[type="email"]:focus,
+.auth-form-container input[type="password"]:focus,
+.auth-form-container input[type="text"]:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+.auth-form-container .auth-button {
+  background-color: #007bff;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 500;
+  width: 100%;
+  transition: background-color 0.3s ease;
+}
+
+.auth-form-container .auth-button:hover {
+  background-color: #0056b3;
+}
+
+.auth-form-container .auth-button:disabled {
+  background-color: #b0c4de;
+  cursor: not-allowed;
+}
+
+.auth-error-message {
+  color: #d9534f;
+  background-color: #f2dede;
+  border: 1px solid #ebccd1;
+  padding: 10px;
+  border-radius: 5px;
+  text-align: center;
+  margin-bottom: 15px;
+  font-size: 14px;
+}
+
+.auth-switch-link {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 14px;
+}
+
+.auth-switch-link a {
+  color: #007bff;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.auth-switch-link a:hover {
+  text-decoration: underline;
+}

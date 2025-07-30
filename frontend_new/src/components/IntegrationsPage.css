@@ -1,0 +1,299 @@
+/* IntegrationsPage.css */
+body {
+    font-family: 'Open Sans', sans-serif;
+    background-color: #eaf2f8; /* Updated background color */
+    color: #333;
+    margin: 0;
+    line-height: 1.6;
+  }
+  
+  .integrations-page-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; /* Align card to the top */
+    min-height: calc(100vh - 60px); /* Adjust based on Navbar height */
+    padding: 40px 20px;
+    background-color: #eaf2f8; /* Added background color */
+  }
+  
+  .integrations-card {
+    background-color: #ffffff;
+    border-radius: 12px; /* Consistent with other cards */
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1); /* Updated shadow */
+    padding: 30px 40px;
+    width: 100%;
+    max-width: 900px;
+    text-align: left;
+    position: relative; /* Added for blob positioning */
+    overflow: hidden; /* Added to contain blobs */
+  }
+  
+  .integrations-header {
+    text-align: center;
+    margin-bottom: 40px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #e0e0e0;
+    position: relative; /* Added for z-index context */
+    z-index: 2; /* Ensure header content is above blobs */
+  }
+  
+  .integrations-header h1 {
+    font-family: 'Montserrat', sans-serif;
+    color: #2c3e50; /* Dark blue-gray */
+    font-size: 2.8em;
+    font-weight: 700;
+    margin-bottom: 10px;
+    position: relative; /* For accent bar positioning */
+    display: inline-block; /* Ensure accent bar is only under text */
+    padding-bottom: 10px; /* Space for accent bar */
+  }
+  
+  .integrations-header h1::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 0;
+    width: 70px; /* Width of the accent bar */
+    height: 4px; /* Thickness of the accent bar */
+    background-color: #3498db; /* Blue color for accent bar */
+    border-radius: 2px;
+  }
+  
+  .integrations-subtitle {
+    font-size: 1.3em;
+    color: #555;
+    max-width: 700px;
+    margin: 0 auto; /* Center the subtitle */
+  }
+  
+  .integration-method {
+    margin-bottom: 40px;
+    padding-bottom: 30px;
+    position: relative; /* Added for z-index context */
+    z-index: 2; /* Ensure method content is above blobs */
+  }
+  
+  .integration-method:not(:last-child) {
+    border-bottom: 1px solid #eee; /* Lighter separator for sections */
+  }
+  
+  .integration-method h2 {
+    font-family: 'Montserrat', sans-serif;
+    color: #1a5276; /* A deep, professional blue */
+    font-size: 2em;
+    margin-bottom: 15px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid #aed6f1; /* Light blue accent under H2 */
+    display: inline-block; /* So border only spans the text width */
+  }
+  
+  .integration-method p, 
+  .integration-method ul li {
+    font-size: 1.1em;
+    color: #444; /* Slightly darker text for better readability */
+    margin-bottom: 15px;
+  }
+  
+  .integration-method ul {
+    list-style-type: disc; /* Standard disc bullets */
+    padding-left: 25px;
+    margin-top: 10px;
+  }
+  
+  .integration-method code {
+    background-color: #eef2f5; /* Light background for inline code */
+    padding: 3px 6px;
+    border-radius: 4px;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 0.95em;
+    color: #c0392b; /* A subtle red for code */
+  }
+  
+  .code-block-container {
+    background-color: #2d3748; /* Dark background for code block */
+    color: #e2e8f0; /* Light text color for contrast */
+  padding: 20px;
+  border-radius: 8px;
+  margin: 20px 0;
+  position: relative;
+  /* overflow-x: auto; Allow horizontal scrolling for long code lines */
+  /* MODIFIED FOR FIXED HEIGHT AND SCROLL */
+  max-height: 400px; /* Or any desired fixed height */
+  overflow: auto; /* Enables scrolling for both X and Y if content exceeds dimensions */
+}
+
+.code-block-container pre {
+    margin: 0;
+    white-space: pre-wrap; /* Wrap long lines within the pre block */
+    word-break: break-all; /* Break long words/strings if necessary */
+  }
+  
+  .code-block-container code {
+    background-color: transparent; /* Override inline code style */
+    color: inherit; /* Inherit from parent (.code-block-container) */
+    padding: 0;
+    font-size: 1em; /* Reset font size for block */
+  }
+  
+  .copy-code-button {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background-color: #4a5568; /* Dark gray button */
+    color: #e2e8f0;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.9em;
+    transition: background-color 0.2s ease;
+  }
+  
+  .copy-code-button:hover {
+    background-color: #2c3748; /* Slightly darker on hover */
+  }
+  
+  .cta-button {
+    display: inline-block;
+    background-color: #27ae60; /* Vibrant green */
+    color: white;
+    padding: 12px 25px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1.1em;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+    border: none; /* If it's a button element */
+    cursor: pointer; /* If it's a button element */
+  }
+  
+  .cta-button:hover {
+    background-color: #229954; /* Darker green */
+    transform: translateY(-2px);
+    text-decoration: none; /* Keep for <a> tags */
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .integrations-card {
+      padding: 20px 25px;
+    }
+    .integrations-header h1 {
+      font-size: 2.2em;
+    }
+    .integrations-subtitle {
+      font-size: 1.1em;
+    }
+    .integration-method h2 {
+      font-size: 1.7em;
+    }
+    .integration-method p, 
+    .integration-method ul li {
+      font-size: 1em;
+    }
+    .cta-button {
+      font-size: 1em;
+      padding: 10px 20px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .integrations-header h1 {
+      font-size: 1.8em;
+    }
+    .integrations-subtitle {
+      font-size: 1em;
+    }
+    .integration-method h2 {
+      font-size: 1.5em;
+    }
+    .code-block-container {
+      padding: 15px;
+    }
+    .copy-code-button {
+      padding: 6px 10px;
+      font-size: 0.8em;
+    }
+  }
+
+/* Blob Styles for Integrations Page */
+.integrations-card::before,
+.integrations-card::after,
+.integrations-card .blob-tertiary,
+.integrations-card .blob-quaternary {
+  content: '';
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0.25; /* Increased opacity for darker effect */
+  filter: blur(50px); /* Slightly reduced blur for more defined edges */
+  z-index: 1; /* Behind card content */
+  pointer-events: none;
+}
+
+/* Blob 1: Top Left (e.g., Blue) */
+.integrations-card::before {
+  width: 400px; /* Increased size */
+  height: 400px; /* Increased size */
+  background-color: #2980b9; /* Darker Blue */
+  top: -150px; /* Adjusted position */
+  left: -180px; /* Adjusted position */
+  animation: float-blob-integration-1 22s infinite ease-in-out alternate;
+}
+
+/* Blob 2: Bottom Right (e.g., Green) */
+.integrations-card::after {
+  width: 370px; /* Increased size */
+  height: 370px; /* Increased size */
+  background-color: #27ae60; /* Darker Green */
+  bottom: -130px; /* Adjusted position */
+  right: -160px; /* Adjusted position */
+  animation: float-blob-integration-2 25s infinite ease-in-out alternate 0.5s;
+}
+
+/* Blob 3: 33% from top, towards right (e.g., Purple) */
+.integrations-card .blob-tertiary {
+  width: 330px; /* Increased size */
+  height: 330px; /* Increased size */
+  background-color: #7d3c98; /* Darker Purple */
+  top: 33%;
+  right: -120px; /* Adjusted position */
+  transform: translateY(-50%); 
+  animation: float-blob-integration-3 28s infinite ease-in-out alternate 1s;
+}
+
+/* Blob 4: 33% from bottom, towards left (e.g., Orange) */
+.integrations-card .blob-quaternary {
+  width: 310px; /* Increased size */
+  height: 310px; /* Increased size */
+  background-color: #d35400; /* Darker Orange */
+  bottom: 33%;
+  left: -110px; /* Adjusted position */
+  transform: translateY(50%); 
+  animation: float-blob-integration-4 20s infinite ease-in-out alternate 1.5s;
+}
+
+/* Keyframes for Blob Animations */
+@keyframes float-blob-integration-1 {
+  0% { transform: translate(0px, 0px) scale(1); }
+  50% { transform: translate(25px, -20px) scale(1.05); }
+  100% { transform: translate(0px, 0px) scale(1); }
+}
+
+@keyframes float-blob-integration-2 {
+  0% { transform: translate(0px, 0px) scale(1); }
+  50% { transform: translate(-20px, 25px) scale(1.05); }
+  100% { transform: translate(0px, 0px) scale(1); }
+}
+
+@keyframes float-blob-integration-3 {
+  0% { transform: translate(0px, 0px) scale(1); }
+  50% { transform: translate(-15px, -15px) scale(1.03); }
+  100% { transform: translate(0px, 0px) scale(1); }
+}
+
+@keyframes float-blob-integration-4 {
+  0% { transform: translate(0px, 0px) scale(1); }
+  50% { transform: translate(15px, 15px) scale(1.03); }
+  100% { transform: translate(0px, 0px) scale(1); }
+}

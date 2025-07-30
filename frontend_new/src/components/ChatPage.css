@@ -1,0 +1,595 @@
+.chat-page {
+  display: flex;
+  flex-direction: column;
+  height: 100vh; /* Full viewport height */
+  font-family: 'Open Sans', sans-serif; /* Body font */
+  background-color: #eaf2f8; /* Added background color */
+}
+
+/* Wrapper for chat and the integration section to manage layout */
+.chat-page-content-wrapper { /* Renamed from .chat-container-wrapper */
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center items horizontally */
+  gap: 1.5rem; /* Space between chat container and integration section */
+  width: 100%;
+  padding: 1.5rem;
+  box-sizing: border-box;
+  flex-grow: 1; /* Allow wrapper to take available space */
+  overflow-y: auto; /* Allow scrolling if content overflows */
+}
+
+.chat-container {
+  /* flex-grow: 0; */ /* Removed */
+  /* flex-shrink: 0; */ /* Removed */
+  display: flex;
+  flex-direction: column;
+  width: 100%; /* Takes full width of the centered wrapper item */
+  max-width: 850px; /* Max width constraint */
+  height: 75vh; /* Explicit height to maintain its size */
+  /* margin: 1.5rem auto; */ /* Replaced by wrapper's padding and centering */
+  margin: 0; /* Vertical margins handled by wrapper's gap and padding */
+  background-color: #ffffff; /* Base background for the container */
+  border-radius: 12px; /* More rounded corners */
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1); /* Updated shadow */
+  overflow: hidden; /* Important for containing positioned children if needed */
+  position: relative; /* Establishes stacking context for pseudo-elements and children */
+}
+
+/* Decorative Blobs */
+.chat-container::before { /* Blue blob */
+  content: '';
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0.2; 
+  z-index: 1; /* Above container background, below messages area content */
+  width: 350px;
+  height: 350px;
+  background-color: #3498db; 
+  top: -150px;
+  left: -150px;
+  filter: blur(10px); 
+  animation: float-blob-1 19s infinite ease-in-out alternate 0.3s; 
+}
+
+.chat-container::after { /* Green blob */
+  content: ''; 
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0.2; 
+  z-index: 1; /* Same level as blue blob */
+  width: 250px; 
+  height: 250px; 
+  background-color: #2ecc71; 
+  bottom: 30px; 
+  right: -80px;  
+  filter: blur(15px); 
+  animation: float-blob-2 21s infinite ease-in-out alternate; 
+}
+
+/* Chat Header */
+.chat-container h2 {
+  flex-shrink: 0; 
+  font-family: 'Montserrat', sans-serif; 
+  padding: 1.25rem 1.75rem; 
+  margin: 0;
+  font-size: 1.6rem; 
+  font-weight: 700; 
+  color: #2c3e50; 
+  background-color: #f8f9fa; /* Header has its own background */
+  border-bottom: 1px solid #dee2e6; 
+  text-align: center;
+  position: relative; /* For z-index and ::after pseudo-element */
+  z-index: 2; /* Above blobs */
+  padding-bottom: 1.25rem; 
+  margin-bottom: 0; 
+}
+
+.chat-container h2 .name-highlight {
+  color: #3498db; 
+}
+
+.chat-container h2::after {
+  content: '';
+  display: block;
+  width: 70px; 
+  height: 4px; 
+  background-color: #3498db; 
+  border-radius: 2px;
+  position: absolute;
+  bottom: 0.5rem; 
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* Chat Messages Area */
+.chat-messages {
+  flex-grow: 1;
+  padding: 1.75rem; 
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem; 
+  background-color: transparent; /* Transparent to see blobs behind */
+  position: relative; 
+  z-index: 0; /* Behind blobs, but its children (.message) will be above blobs */
+}
+
+/* Individual Message Bubbles */
+.message {
+  display: flex;
+  flex-direction: column;
+  max-width: 80%; 
+  padding: 0.85rem 1.2rem; 
+  border-radius: 20px; 
+  line-height: 1.5; 
+  word-wrap: break-word; 
+  position: relative; 
+  z-index: 10; /* High z-index to be on top of blobs and .chat-messages area */
+  /* Background color is set by .maya-message or .user-message */
+}
+
+.message-sender {
+  font-size: 0.85rem; 
+  font-weight: 600;
+  color: #555;
+  margin-bottom: 0.3rem;
+}
+
+.maya-message {
+  background-color: #e2efffc2; 
+  color: #212529; 
+  margin-right: auto; 
+  margin-left: 0; 
+  border-bottom-left-radius: 6px;
+  text-align: left; 
+}
+
+.maya-message .message-sender {
+  color: #3498db; 
+  text-align: left; 
+}
+
+.user-message {
+  background-color: #3498db; 
+  color: white;
+  margin-left: auto; 
+  margin-right: 0; 
+  border-bottom-right-radius: 6px;
+  text-align: right; 
+}
+
+.user-message .message-sender {
+  text-align: right;
+  color: #e0f7fa; 
+}
+
+/* Styling for intermediate step messages (thoughts, tools, transfers) */
+/* This is the common style for the content block of an intermediate step */
+.thought-message,
+.tool-call-message,
+.tool-response-message,
+.agent-transfer-message {
+  font-style: italic;
+  color: #495057;    
+  padding: 0.75rem 1rem; /* Slightly more padding */
+  border-radius: 8px;    /* Slightly less rounded than main messages */
+  margin: 0.4rem 0; 
+  max-width: 100%;   
+  box-sizing: border-box;
+  font-size: 0.9em; /* Slightly smaller font */
+  line-height: 1.4;
+  position: relative; /* For pseudo-elements if added later */
+}
+
+/* Specific styles for each type of intermediate message */
+
+/* Thoughts */
+.message-type-thought .thought-message {
+  background-color: #f8f9fa; 
+  border-left: 4px solid #adb5bd; /* Thicker border */
+  color: #5a6268; /* Slightly different text color */
+}
+/* Example for adding icon-like content, ensure your font/setup supports it if you use actual icons
+.message-type-thought .thought-message::before {
+  content: "🤔 "; 
+  font-style: normal; 
+  margin-right: 0.5em;
+}
+*/
+
+/* Tool Calls */
+.message-type-tool_call .tool-call-message {
+  background-color: #eef3f7; /* Lighter blueish background */
+  border-left: 4px solid #5dade2; 
+  font-style: normal; /* Not italic for structured content */
+}
+
+/* Tool Responses */
+.message-type-tool_response .tool-response-message {
+  background-color: #e6f7ee; /* Lighter greenish background */
+  border-left: 4px solid #58d68d; 
+  font-style: normal; /* Not italic for structured content */
+}
+
+/* Common styling for the name and details within tool_call and tool_response */
+/* Assumes JS rendering will use these classes for structured tool data */
+.tool-operation-name {
+  display: block;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 0.5rem;
+  font-size: 0.95em;
+}
+
+.tool-operation-details {
+  background-color: #ffffff; /* White background for the pre block */
+  border: 1px solid #dde2e6;
+  padding: 0.5rem 0.75rem;
+  border-radius: 6px;
+  font-family: 'Courier New', Courier, monospace; /* Monospace font for code/JSON */
+  font-size: 0.85em; 
+  color: #2c3e50;
+  white-space: pre-wrap;       /* Allow wrapping */
+  word-break: break-all;       /* Break long words/strings */
+  max-height: 200px; /* Limit height and make scrollable */
+  overflow-y: auto;
+}
+
+
+/* Agent Transfers */
+.message-type-agent_transfer .agent-transfer-message {
+  background-color: #e6f7ee; /* Lighter greenish background (same as tool_response) */
+  border-left: 4px solid #58d68d; /* Green border (same as tool_response) */
+  color: #1e8449; /* Darker green text color for contrast */
+  font-weight: 500; /* Slightly bolder */
+}
+/*
+.message-type-agent_transfer .agent-transfer-message::before {
+  content: "↔️ ";
+  font-style: normal;
+  margin-right: 0.5em;
+}
+*/
+
+/* Alignment for intermediate steps within Maya's messages */
+.maya-message .message-type-thought .thought-message,
+.maya-message .message-type-tool_call .tool-call-message,
+.maya-message .message-type-tool_response .tool-response-message,
+.maya-message .message-type-agent_transfer .agent-transfer-message {
+  text-align: left; 
+}
+
+/* REMOVE specific text-align: right for intermediate steps under .user-message as they are unlikely */
+/* .user-message .message-type-thought .thought-message { text-align: right; } */ /* Removed */
+/* .user-message .message-type-tool_call .tool-call-message { text-align: right; } */ /* Removed */
+/* .user-message .message-type-tool_response .tool-response-message { text-align: right; } */ /* Removed */
+
+
+.message-content-wrapper > p:not(.thought-message):not(.tool-call-message):not(.tool-response-message):not(.agent-transfer-message):not(.warning-message):not(.error-message) {
+  margin: 0; 
+}
+
+.message-type-warning .message-content-wrapper .warning-message,
+.message-type-error .message-content-wrapper .error-message {
+  padding: 8px 12px;
+  border-radius: 5px;
+  margin: 0.3rem 0;
+  text-align: left; 
+}
+.message-type-warning .message-content-wrapper .warning-message {
+  background-color: #fff3e0; 
+  border-left: 3px solid #ff9800; 
+  color: #e65100; 
+}
+.message-type-error .message-content-wrapper .error-message { 
+  background-color: #ffebee; 
+  border-left: 3px solid #e74c3c; 
+  color: #c0392b; 
+}
+
+/* Styling for content generated by ReactMarkdown within messages */
+.message-content-wrapper .markdown-content ul,
+.message-content-wrapper .markdown-content ol {
+  padding-left: 20px; /* Initial indentation for lists */
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+}
+
+.message-content-wrapper .markdown-content ul ul,
+.message-content-wrapper .markdown-content ol ol,
+.message-content-wrapper .markdown-content ul ol,
+.message-content-wrapper .markdown-content ol ul {
+  padding-left: 20px; /* Indentation for nested lists */
+  margin-top: 0.25em;
+  margin-bottom: 0.25em;
+}
+
+.message-content-wrapper .markdown-content li {
+  margin-bottom: 0.25em; /* Space between list items */
+}
+
+.message-content-wrapper .markdown-content p {
+  margin-top: 0;
+  margin-bottom: 0.5em; /* Space after paragraphs within markdown */
+}
+
+.message-content-wrapper .markdown-content h1,
+.message-content-wrapper .markdown-content h2,
+.message-content-wrapper .markdown-content h3,
+.message-content-wrapper .markdown-content h4,
+.message-content-wrapper .markdown-content h5,
+.message-content-wrapper .markdown-content h6 {
+  margin-top: 0.75em;
+  margin-bottom: 0.25em;
+  line-height: 1.3;
+}
+
+/* Chat Input Area */
+.chat-input-area {
+  display: flex;
+  align-items: center; 
+  padding: 0.75rem 1rem; 
+  border-top: 1px solid #dee2e6; 
+  background-color: #f8f9fa; /* Input area has its own background */
+  flex-shrink: 0; 
+  position: relative; /* For z-index */
+  z-index: 2; /* Above blobs */
+}
+
+.chat-input-area input {
+  flex-grow: 1;
+  padding: 0.75rem 1rem; 
+  border: 1px solid #ced4da; 
+  border-radius: 20px; 
+  margin-right: 0.75rem; 
+  font-size: 1rem;
+  transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.chat-input-area input:focus {
+  outline: none;
+  border-color: #3498db;
+  box-shadow: 0 0 0 0.2rem rgba(52, 152, 219, 0.25); 
+}
+
+.chat-input-area button {
+  padding: 0.75rem 1.5rem; 
+  background-color: #2ecc71; 
+  color: white;
+  border: none;
+  border-radius: 22px; 
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 600;
+  transition: background-color 0.2s ease-in-out, transform 0.1s ease;
+}
+
+.chat-input-area button:hover {
+  background-color: #2ecc71; 
+  transform: translateY(-1px); 
+}
+
+.chat-input-area button:active {
+  transform: translateY(0px);
+}
+
+/* Ensure blobs from chat-container don't overlap other elements outside it */
+.chat-container {
+  /* ... existing styles ... */
+  overflow: hidden; /* Keep blobs contained */
+}
+
+/* NEW Integration Details Section Styles */
+.integration-details-section {
+  width: 100%;
+  max-width: 850px; /* Match chat container width */
+  background-color: #ffffff; /* Match instructions-card */
+  border-radius: 12px; /* Match instructions-card */
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1); /* Updated shadow */
+  margin-bottom: 1.5rem; /* Consistent spacing */
+  position: relative; /* For blob positioning and z-index context */
+  overflow: hidden; /* CRITICAL: Changed back to hidden to contain blobs */
+  /* z-index: 0; */ /* Not strictly necessary here if it's a root-level card in its flow */
+}
+
+/* Colored Blobs for Integration Section (styled like DocUploadPage instructions) */
+.integration-details-section::before { /* Purple Blob (like blob-instr-bottom-left) */
+  content: '';
+  position: absolute;
+  border-radius: 50%;
+  background-color: #8e44ad; /* Purple from DocUploadPage instructions */
+  width: 320px; 
+  height: 320px; 
+  bottom: -130px; 
+  left: -150px;  
+  opacity: 0.18; 
+  filter: blur(20px); 
+  z-index: 1; /* On top of parent background, behind content with z-index 1+ */
+  animation: float-integration-blob-1 26s infinite ease-in-out alternate 0.5s;
+}
+
+.integration-details-section::after { /* Orange/Yellow Blob (like blob-instr-top-right) */
+  content: ''; 
+  position: absolute;
+  border-radius: 50%;
+  background-color: #f39c12; /* Orange/Yellow from DocUploadPage instructions */
+  width: 280px; 
+  height: 280px; 
+  top: -100px; 
+  right: -120px;  
+  opacity: 0.18; 
+  filter: blur(20px); 
+  z-index: 1; /* On top of parent background, behind content with z-index 1+ */
+  animation: float-integration-blob-2 22s infinite ease-in-out alternate 0.3s;
+}
+
+.integration-toggle-button {
+  background-color: #e6f7ff; /* Very light blue for collapsed state */
+  color: #333; 
+  border: none;
+  padding: 15px 20px; /* Match instructions-toggle-header */
+  width: 100%;
+  text-align: left;
+  font-size: 1.1rem;
+  font-weight: 600; 
+  cursor: pointer;
+  border-radius: 12px; /* Match parent card when collapsed */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: background-color 0.2s ease, border-radius 0.2s ease, color 0.2s ease; 
+  position: relative; /* Ensure it has a stacking context */
+  z-index: 2; /* Above blobs (z-index 0) */
+}
+
+.integration-toggle-button.expanded {
+  background-color: #f8f9fa; /* Match instructions-toggle-header */
+  color: #2c3e50; /* Match instructions-toggle-header text */
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  border-bottom: 1px solid #e9ecef; /* Match instructions-toggle-header */
+}
+
+.integration-toggle-button:not(.expanded):hover {
+  background-color: #d1ecf1; /* Slightly darker light blue on hover for collapsed */
+}
+
+.integration-toggle-button.expanded:hover {
+  background-color: #e9ecef; /* Slightly darker for expanded (like hover on instructions header) */
+}
+
+.toggle-arrow {
+  font-size: 1rem;
+  transition: transform 0.3s ease-out;
+}
+
+.integration-content-visible {
+  padding: 20px; 
+  background-color: #fff; /* Should be transparent if blobs are to show through from parent, but instructions-card content is not transparent */
+  border-bottom-left-radius: 12px; 
+  border-bottom-right-radius: 12px; 
+  animation: fadeInContent 0.4s ease-out;
+  position: relative; 
+  z-index: 0; /* Above blobs (z-index 0) */
+  /*max-height: 280px; /* Reduced height, adjust as needed */
+  overflow-y: auto;  
+}
+
+@keyframes fadeInContent {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.integration-content-visible h3 {
+  margin-top: 0;
+  margin-bottom: 0.75rem;
+  color: #343a40; /* Darker heading */
+  font-size: 1.2rem;
+}
+
+.integration-content-visible ol {
+  padding-left: 20px; /* Standard list indentation */
+  margin-bottom: 1.25rem;
+  line-height: 1.6;
+}
+
+.integration-content-visible li {
+  margin-bottom: 0.6rem;
+  color: #495057; /* Softer text color */
+}
+
+.integration-learn-more-link {
+  display: inline-block;
+  background-color: #007bff; /* Bootstrap primary */
+  color: white;
+  padding: 0.6rem 1.2rem;
+  text-decoration: none;
+  border-radius: 5px;
+  font-weight: 500;
+  transition: background-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.integration-learn-more-link:hover {
+  background-color: #0056b3;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* Styles for inline links within integration instructions */
+.integration-content-visible .integration-inline-link {
+  color: #007bff; /* Standard link blue */
+  text-decoration: underline;
+  font-weight: 500; /* Slightly bolder to stand out */
+}
+
+.integration-content-visible .integration-inline-link:hover {
+  color: #0056b3; /* Darker blue on hover */
+  text-decoration: none; /* Optional: remove underline on hover */
+}
+
+/* Spinner for send button */
+.spinner-btn {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Keyframes for Integration Section Blobs (adapted from DocUploadPage) */
+@keyframes float-integration-blob-1 { /* Based on float-blob-bl */
+  0% { transform: translate(0px, 0px) scale(1); }
+  50% { transform: translate(20px, -25px) scale(1.08); }
+  100% { transform: translate(0px, 0px) scale(1); }
+}
+
+@keyframes float-integration-blob-2 { /* Based on float-blob-tr */
+  0% { transform: translate(0px, 0px) scale(1); }
+  50% { transform: translate(-25px, 20px) scale(1.08); }
+  100% { transform: translate(0px, 0px) scale(1); }
+}
+
+/* Remove old float-blob-3 and float-blob-4 if they were for the previous blob colors/style */
+/* @keyframes float-blob-3 { ... } */
+/* @keyframes float-blob-4 { ... } */
+
+/* Global error/warning styling if needed outside messages */
+.chat-error-global {
+  color: #c0392b;
+  background-color: #ffebee;
+  padding: 0.75rem;
+  border-radius: 4px;
+  margin: 0 1.75rem 1rem 1.75rem; /* Match chat-messages padding */
+  text-align: center;
+  border: 1px solid #e74c3c;
+  z-index: 2; /* Ensure it's above blobs if they extend */
+  position: relative;
+}
+
+.chat-page-loading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    text-align: center;
+}
+
+.chat-page-loading .chat-container {
+    height: auto; /* Override fixed height for loading state */
+    box-shadow: none;
+}
+
+.chat-page-loading p {
+    font-size: 1.1rem;
+    color: #555;
+}
